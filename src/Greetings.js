@@ -2,7 +2,7 @@ import React from "react";
 
 const Greetings = ({ firstName, lastName }) => (
     <div>
-        Salut! {firstName} {lastName}! 
+        Welcome, {firstName} {lastName}! 
     </div>
 )
 
