@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Greetings from "./Greetings";
+import style from './style'
+import TextField from './TextField'
+import FirstNameField from './FirstNameField'
+import LastNameField from './LastNameField'
 
 class SimpleForm extends React.Component {
   state = {
     firstName: "",
     firstNameError: "",
+    lastName: "",
+    lastNameError: "",
   };
 
   validateName = name => {
@@ -30,32 +36,38 @@ class SimpleForm extends React.Component {
       firstName: event.target.value
     });
 
+    onLastNameBlur = () => {
+      const { lastName } = this.state;
+  
+      const lastNameError = this.validateName( lastName );
+  
+      return this.setState({ lastNameError });
+    };
+  
+    onLastNameChange = event =>
+      this.setState({
+        lastName: event.target.value
+      });
+  
+
   render() {
-    const { firstNameError, firstName } = this.state;
+    const { firstNameError, firstName, lastName, lastNameError  } = this.state;
 
     return (
-      <div>
-        <div>
-          <label>
-            First name:
-            <input
-              type="text"
-              name="firstName"
-              onChange={this.onFirstNameChange}
-              onBlur={this.onFirstNameBlur}
-            />
-            {firstNameError && <div>{firstNameError}</div>}
-          </label>
-        </div>
+      <div style={style.form}>
+        <FirstNameField onChange={this.onFirstNameChange}
+                        onBlur={this.onFirstNameBlur}
+                        error={firstNameError} />
 
-        <Greetings
-          firstName={firstName}
-        />
+        <LastNameField  onChange={this.onLastNameChange}
+                        onBlur={this.onLastNameBlur}
+                        error={lastNameError} />
+
+        <Greetings firstName={firstName} lastName={lastName} />
       </div>
     );
   }
 }
-
 
 const App = () => (
       <div className="App">
